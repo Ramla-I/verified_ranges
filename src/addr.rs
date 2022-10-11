@@ -6,9 +6,9 @@
 //     ops::{Add, AddAssign, Deref, DerefMut, RangeInclusive, Sub, SubAssign},
 // };
 // use zerocopy::FromBytes;
-use prusti_contracts::*;
+// use prusti_contracts::*;
 
-pub const MAX_VIRTUAL_ADDRESS: usize = usize::MAX;
+pub const MAX_VIRTUAL_ADDRESS: usize = 0xFFFF_FFFF;//usize::MAX;
 
 /// The lower 12 bits of a virtual address correspond to the P1 page frame offset. 
 pub const PAGE_SHIFT: usize = 12;
@@ -251,14 +251,18 @@ impl VirtualAddress {
 
 
 #[inline]
-#[trusted]
-#[ensures(true)]
 fn is_canonical_virtual_address(virt_addr: u64) -> bool {
     let addr_prefix = (virt_addr >> 47) & (0x1FFFF);
-    match addr_prefix {
-        0 | 0b1_1111_1111_1111_1111 => true,
-        _ => false,
+    if (addr_prefix == 0) | (addr_prefix == 0b1_1111_1111_1111_1111) {
+        true
+    } else {
+        false
     }
+    // match addr_prefix {
+    //     0 => true,
+    //     0b1_1111_1111_1111_1111 => true,
+    //     _ => false,
+    // }
 }
 
 #[inline]
