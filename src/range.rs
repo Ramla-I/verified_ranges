@@ -1,13 +1,13 @@
-use bit_field::BitField;
+// use bit_field::BitField;
 use core::{
     cmp::{min, max},
     fmt,
     iter::Step,
-    ops::{Add, AddAssign, Deref, DerefMut, RangeInclusive, Sub, SubAssign},
+    ops::{Add, AddAssign, Deref, DerefMut, Sub, SubAssign},
 };
-use zerocopy::FromBytes;
+// use zerocopy::FromBytes;
 
-use crate::{addr::*, unit::*};
+use crate::{addr::*, unit::*, range_inclusive::*};
 
 /// A range of [`Frame`]s that are contiguous in physical memory.
 #[derive(Clone, PartialEq, Eq)]
@@ -124,11 +124,11 @@ impl DerefMut for FrameRange {
         &mut self.0
     }
 }
-impl IntoIterator for FrameRange {
+impl<'a> IntoIterator for &'a FrameRange {
     type Item = Frame;
-    type IntoIter = RangeInclusive<Frame>;
+    type IntoIter = RangeInclusiveIterator<Frame>;
     fn into_iter(self) -> Self::IntoIter {
-        self.0
+        self.0.into_iter()
     }
 }
 
@@ -249,11 +249,11 @@ impl DerefMut for PageRange {
         &mut self.0
     }
 }
-impl IntoIterator for PageRange {
+impl <'a>IntoIterator for &'a PageRange {
     type Item = Page;
-    type IntoIter = RangeInclusive<Page>;
+    type IntoIter = RangeInclusiveIterator<Page>;
     fn into_iter(self) -> Self::IntoIter {
-        self.0
+        self.0.into_iter()
     }
 }
 

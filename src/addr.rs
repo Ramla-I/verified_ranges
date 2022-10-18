@@ -1,10 +1,10 @@
 // use bit_field::BitField;
-// use core::{
-//     cmp::{min, max},
-//     fmt,
-//     iter::Step,
-//     ops::{Add, AddAssign, Deref, DerefMut, RangeInclusive, Sub, SubAssign},
-// };
+use core::{
+    cmp::{min, max},
+    fmt,
+    iter::Step,
+    ops::{Add, AddAssign, Deref, DerefMut, RangeInclusive, Sub, SubAssign},
+};
 // use zerocopy::FromBytes;
 // use prusti_contracts::*;
 
@@ -73,13 +73,13 @@ pub enum EntryFlags {
 
 
 /// A physical memory address, which is a `usize` under the hood
-// #[derive(
-//     Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default, 
-//     Binary, Octal, LowerHex, UpperHex, 
-//     BitAnd, BitOr, BitXor, BitAndAssign, BitOrAssign, BitXorAssign, 
-//     Add, Sub, AddAssign, SubAssign,
-//     FromBytes,
-// )]
+#[derive(
+    Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default, 
+    Binary, Octal, LowerHex, UpperHex, 
+    BitAnd, BitOr, BitXor, BitAndAssign, BitOrAssign, BitXorAssign, 
+    Add, Sub, AddAssign, SubAssign,
+    //FromBytes,
+)]
 #[repr(transparent)]
 pub struct PhysicalAddress(usize);
 
@@ -116,43 +116,43 @@ impl PhysicalAddress {
         self.0 & (PAGE_SIZE - 1)
     }
 }
-// impl fmt::Debug for PhysicalAddress {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         write!(f, concat!("p", "{:#X}"), self.0)
-//     }
-// }
-// impl fmt::Display for PhysicalAddress {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         write!(f, "{:?}", self)
-//     }
-// }
-// impl fmt::Pointer for PhysicalAddress {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         write!(f, "{:?}", self)
-//     }
-// }
-// impl Add<usize> for PhysicalAddress {
-//     type Output = PhysicalAddress;
-//     fn add(self, rhs: usize) -> PhysicalAddress {
-//         PhysicalAddress::new_canonical(self.0.saturating_add(rhs))
-//     }
-// }
-// impl AddAssign<usize> for PhysicalAddress {
-//     fn add_assign(&mut self, rhs: usize) {
-//         *self = PhysicalAddress::new_canonical(self.0.saturating_add(rhs));
-//     }
-// }
-// impl Sub<usize> for PhysicalAddress {
-//     type Output = PhysicalAddress;
-//     fn sub(self, rhs: usize) -> PhysicalAddress {
-//         PhysicalAddress::new_canonical(self.0.saturating_sub(rhs))
-//     }
-// }
-// impl SubAssign<usize> for PhysicalAddress {
-//     fn sub_assign(&mut self, rhs: usize) {
-//         *self = PhysicalAddress::new_canonical(self.0.saturating_sub(rhs));
-//     }
-// }
+impl fmt::Debug for PhysicalAddress {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, concat!("p", "{:#X}"), self.0)
+    }
+}
+impl fmt::Display for PhysicalAddress {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+impl fmt::Pointer for PhysicalAddress {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+impl Add<usize> for PhysicalAddress {
+    type Output = PhysicalAddress;
+    fn add(self, rhs: usize) -> PhysicalAddress {
+        PhysicalAddress::new_canonical(self.0.saturating_add(rhs))
+    }
+}
+impl AddAssign<usize> for PhysicalAddress {
+    fn add_assign(&mut self, rhs: usize) {
+        *self = PhysicalAddress::new_canonical(self.0.saturating_add(rhs));
+    }
+}
+impl Sub<usize> for PhysicalAddress {
+    type Output = PhysicalAddress;
+    fn sub(self, rhs: usize) -> PhysicalAddress {
+        PhysicalAddress::new_canonical(self.0.saturating_sub(rhs))
+    }
+}
+impl SubAssign<usize> for PhysicalAddress {
+    fn sub_assign(&mut self, rhs: usize) {
+        *self = PhysicalAddress::new_canonical(self.0.saturating_sub(rhs));
+    }
+}
 impl Into<usize> for PhysicalAddress {
     #[inline]
     fn into(self) -> usize {
@@ -161,13 +161,13 @@ impl Into<usize> for PhysicalAddress {
 }
 
 ///A " "virtual" " memory address, which is a `usize` under the hood.
-// #[derive(
-//     Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default, 
-//     Binary, Octal, LowerHex, UpperHex, 
-//     BitAnd, BitOr, BitXor, BitAndAssign, BitOrAssign, BitXorAssign, 
-//     Add, Sub, AddAssign, SubAssign,
-//     FromBytes,
-// )]
+#[derive(
+    Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Default, 
+    Binary, Octal, LowerHex, UpperHex, 
+    BitAnd, BitOr, BitXor, BitAndAssign, BitOrAssign, BitXorAssign, 
+    Add, Sub, AddAssign, SubAssign,
+    // FromBytes,
+)]
 #[repr(transparent)]
 pub struct VirtualAddress(usize);
 
@@ -205,49 +205,49 @@ impl VirtualAddress {
     }
 }
 
-// impl fmt::Debug for VirtualAddress {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         write!(f, concat!("v", "{:#X}"), self.0)
-//     }
-// }
-// impl fmt::Display for VirtualAddress {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         write!(f, "{:?}", self)
-//     }
-// }
-// impl fmt::Pointer for VirtualAddress {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         write!(f, "{:?}", self)
-//     }
-// }
-// impl Add<usize> for VirtualAddress {
-//     type Output = VirtualAddress;
-//     fn add(self, rhs: usize) -> VirtualAddress {
-//         VirtualAddress::new_canonical(self.0.saturating_add(rhs))
-//     }
-// }
-// impl AddAssign<usize> for VirtualAddress {
-//     fn add_assign(&mut self, rhs: usize) {
-//         *self = VirtualAddress::new_canonical(self.0.saturating_add(rhs));
-//     }
-// }
-// impl Sub<usize> for VirtualAddress {
-//     type Output = VirtualAddress;
-//     fn sub(self, rhs: usize) -> VirtualAddress {
-//         VirtualAddress::new_canonical(self.0.saturating_sub(rhs))
-//     }
-// }
-// impl SubAssign<usize> for VirtualAddress {
-//     fn sub_assign(&mut self, rhs: usize) {
-//         *self = VirtualAddress::new_canonical(self.0.saturating_sub(rhs));
-//     }
-// }
-// impl Into<usize> for VirtualAddress {
-//     #[inline]
-//     fn into(self) -> usize {
-//         self.0
-//     }
-// }
+impl fmt::Debug for VirtualAddress {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, concat!("v", "{:#X}"), self.0)
+    }
+}
+impl fmt::Display for VirtualAddress {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+impl fmt::Pointer for VirtualAddress {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+impl Add<usize> for VirtualAddress {
+    type Output = VirtualAddress;
+    fn add(self, rhs: usize) -> VirtualAddress {
+        VirtualAddress::new_canonical(self.0.saturating_add(rhs))
+    }
+}
+impl AddAssign<usize> for VirtualAddress {
+    fn add_assign(&mut self, rhs: usize) {
+        *self = VirtualAddress::new_canonical(self.0.saturating_add(rhs));
+    }
+}
+impl Sub<usize> for VirtualAddress {
+    type Output = VirtualAddress;
+    fn sub(self, rhs: usize) -> VirtualAddress {
+        VirtualAddress::new_canonical(self.0.saturating_sub(rhs))
+    }
+}
+impl SubAssign<usize> for VirtualAddress {
+    fn sub_assign(&mut self, rhs: usize) {
+        *self = VirtualAddress::new_canonical(self.0.saturating_sub(rhs));
+    }
+}
+impl Into<usize> for VirtualAddress {
+    #[inline]
+    fn into(self) -> usize {
+        self.0
+    }
+}
 
 
 #[inline]

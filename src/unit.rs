@@ -1,11 +1,11 @@
-use bit_field::BitField;
+// use bit_field::BitField;
 use core::{
     cmp::{min, max},
     fmt,
     iter::Step,
     ops::{Add, AddAssign, Deref, DerefMut, RangeInclusive, Sub, SubAssign},
 };
-use zerocopy::FromBytes;
+// use zerocopy::FromBytes;
 
 use crate::addr::*;
 
