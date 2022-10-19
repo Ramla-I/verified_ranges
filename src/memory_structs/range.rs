@@ -7,7 +7,8 @@ use core::{
 };
 // use zerocopy::FromBytes;
 
-use crate::{addr::*, unit::*, range_inclusive::*};
+use crate::memory_structs::{addr::*, unit::*};
+use crate::range_inclusive::*;
 
 /// A range of [`Frame`]s that are contiguous in physical memory.
 #[derive(Clone, PartialEq, Eq)]

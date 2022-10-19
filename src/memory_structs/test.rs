@@ -1,8 +1,8 @@
 mod range_inclusive {
-    use crate::{
+    use crate::range_inclusive::*;
+    use crate::memory_structs::{
         addr::*,
         unit::*,
-        range_inclusive::*,
         range::*
     };
 
@@ -73,10 +73,10 @@ mod range_inclusive {
 }
 
 mod range {
-    use crate::{
+    use crate::range_inclusive::*;
+    use crate::memory_structs::{
         addr::*,
         unit::*,
-        range_inclusive::*,
         range::*
     };
 

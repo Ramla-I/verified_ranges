@@ -7,7 +7,7 @@ use core::{
 };
 // use zerocopy::FromBytes;
 
-use crate::addr::*;
+use crate::memory_structs::addr::*;
 
 /// A `" Frame "` is a chunk of **" physical "** memory aligned to a [`PAGE_SIZE`] boundary.
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -34,11 +34,11 @@ impl Frame {
         }
     }
 }
-impl fmt::Debug for Frame {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, concat!(stringify!(Frame), "(", "p", "{:#X})"), self.start_address())
-    }
-}
+// impl fmt::Debug for Frame {
+//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+//         write!(f, concat!(stringify!(Frame), "(", "p", "{:#X})"), self.start_address())
+//     }
+// }
 impl Add<usize> for Frame {
     type Output = Frame;
     fn add(self, rhs: usize) -> Frame {
@@ -111,11 +111,11 @@ impl Page {
         }
     }
 }
-impl fmt::Debug for Page {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, concat!(stringify!(Page), "(", "v", "{:#X})"), self.start_address())
-    }
-}
+// impl fmt::Debug for Page {
+//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+//         write!(f, concat!(stringify!(Page), "(", "v", "{:#X})"), self.start_address())
+//     }
+// }
 impl Add<usize> for Page {
     type Output = Page;
     fn add(self, rhs: usize) -> Page {
